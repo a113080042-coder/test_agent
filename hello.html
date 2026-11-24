@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity 破冰成功！</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top left, #fdfbfb, #ebedee);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: #333;
+      padding: 20px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+      padding: 48px 40px;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(166, 193, 238, 0.4), 0 8px 16px rgba(0, 0, 0, 0.04);
+      text-align: center;
+      max-width: 440px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(166, 193, 238, 0.5), 0 10px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2d3748;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+      text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+    }
+
+    .btn {
+      position: relative;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      border: none;
+      padding: 14px 32px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      cursor: pointer;
+      outline: none;
+      box-shadow: 0 0 20px rgba(118, 75, 162, 0.45), 0 4px 12px rgba(102, 126, 234, 0.3);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 28px rgba(118, 75, 162, 0.75), 0 6px 16px rgba(102, 126, 234, 0.45);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 0 16px rgba(118, 75, 162, 0.5);
+    }
+
+    .info-box {
+      margin-top: 28px;
+      padding: 18px 20px;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .counter-text {
+      font-size: 0.95rem;
+      color: #4a5568;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .counter-badge {
+      display: inline-block;
+      background: #764ba2;
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    .quote-text {
+      font-size: 1rem;
+      color: #2d3748;
+      font-weight: 600;
+      min-height: 1.5em;
+      line-height: 1.5;
+      transition: opacity 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Antigravity 破冰成功！</h1>
+    <button class="btn" id="glowBtn">點擊接收鼓勵 ✨</button>
+    <div class="info-box">
+      <div class="counter-text">
+        點擊次數：<span class="counter-badge" id="clickCount">0</span> 次
+      </div>
+      <div class="quote-text" id="quote">點擊上方按鈕，開啟今日滿滿能量！</div>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "每一步都是前進的印記，今天也是閃閃發光的一天！🌟",
+      "保持好奇心，代碼的世界因你而精采！🚀",
+      "每一次嘗試，都在創造不可思議的可能！✨",
+      "放輕鬆、深呼吸，你比想像中更優秀！🌈",
+      "靈感正在悄悄發芽，繼續保持熱情吧！💡",
+      "沒有跨不過去的挑戰，只有越來越強大的你！💪",
+      "Antigravity 與你同行，一起探索無垠未知！🌌"
+    ];
+
+    let count = 0;
+    const btn = document.getElementById('glowBtn');
+    const counterEl = document.getElementById('clickCount');
+    const quoteEl = document.getElementById('quote');
+
+    btn.addEventListener('click', () => {
+      count++;
+      counterEl.textContent = count;
+
+      // 隨機選取一句不同於當前內容的鼓勵小語
+      let newQuote;
+      do {
+        newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      } while (quotes.length > 1 && newQuote === quoteEl.textContent);
+
+      quoteEl.style.opacity = '0';
+      setTimeout(() => {
+        quoteEl.textContent = newQuote;
+        quoteEl.style.opacity = '1';
+      }, 150);
+    });
+  </script>
+</body>
+</html>
