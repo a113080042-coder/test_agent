@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity 破冰成功！</title>
+  <style>
+    :root {
+      /* 淺色米白模式變數 */
+      --body-bg: radial-gradient(circle at top left, #faf7f2 0%, #f3ede2 100%);
+      --card-bg: linear-gradient(135deg, rgba(251, 194, 235, 0.9) 0%, rgba(166, 193, 238, 0.9) 100%);
+      --card-border: rgba(255, 255, 255, 0.65);
+      --card-shadow: 0 20px 40px rgba(166, 193, 238, 0.4), 0 8px 16px rgba(0, 0, 0, 0.04);
+      --card-hover-shadow: 0 24px 48px rgba(166, 193, 238, 0.5), 0 10px 20px rgba(0, 0, 0, 0.06);
+      --title-color: #2d3748;
+      --title-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+      --subtext-color: #5a6578;
+      --info-bg: rgba(255, 255, 255, 0.8);
+      --info-border: rgba(255, 255, 255, 0.9);
+      --counter-text-color: #4a5568;
+      --quote-text-color: #2d3748;
+      --toggle-bg: rgba(255, 255, 255, 0.7);
+      --toggle-border: rgba(255, 255, 255, 0.85);
+      --toggle-color: #4a5568;
+    }
+
+    /* 深色夜間模式變數 */
+    body.dark-mode {
+      --body-bg: radial-gradient(circle at top left, #1a1c29 0%, #0d0f18 100%);
+      --card-bg: linear-gradient(135deg, rgba(46, 26, 71, 0.85) 0%, rgba(26, 38, 77, 0.85) 100%);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --card-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(139, 92, 246, 0.15);
+      --card-hover-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(217, 70, 239, 0.25);
+      --title-color: #f8fafc;
+      --title-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      --subtext-color: #cbd5e1;
+      --info-bg: rgba(15, 23, 42, 0.65);
+      --info-border: rgba(255, 255, 255, 0.12);
+      --counter-text-color: #cbd5e1;
+      --quote-text-color: #f1f5f9;
+      --toggle-bg: rgba(255, 255, 255, 0.12);
+      --toggle-border: rgba(255, 255, 255, 0.2);
+      --toggle-color: #f8fafc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--body-bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      padding: 20px;
+      transition: background 0.4s ease;
+    }
+
+    .card {
+      position: relative;
+      background: var(--card-bg);
+      padding: 52px 40px 44px;
+      border-radius: 28px;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+      max-width: 450px;
+      width: 100%;
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    /* 右上角切換模式開關 */
+    .theme-toggle-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--toggle-color);
+      cursor: pointer;
+      outline: none;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .theme-toggle-btn:active {
+      transform: scale(0.95);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--title-color);
+      letter-spacing: 0.5px;
+      margin-top: 8px;
+      margin-bottom: 24px;
+      text-shadow: var(--title-shadow);
+      transition: color 0.4s ease, text-shadow 0.4s ease;
+    }
+
+    /* 吸睛紫粉漸層按鈕 */
+    .btn {
+      position: relative;
+      background: linear-gradient(135deg, #ec4899 0%, #c026d3 40%, #7c3aed 100%);
+      color: #ffffff;
+      border: none;
+      padding: 15px 36px;
+      font-size: 1.08rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-radius: 9999px;
+      cursor: pointer;
+      outline: none;
+      box-shadow: 0 4px 15px rgba(217, 70, 239, 0.4), 0 2px 6px rgba(124, 58, 237, 0.3);
+      /* 平滑懸浮縮放與陰影動畫 */
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+
+    /* hover:scale-105 與 hover:shadow-lg */
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px -3px rgba(217, 70, 239, 0.55), 0 6px 14px -2px rgba(124, 58, 237, 0.45);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 8px rgba(217, 70, 239, 0.4);
+    }
+
+    /* 按鈕下方小字標籤 */
+    .agent-badge {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: var(--subtext-color);
+      letter-spacing: 0.2px;
+      opacity: 0.9;
+      transition: color 0.4s ease;
+      font-weight: 500;
+    }
+
+    .info-box {
+      margin-top: 22px;
+      padding: 20px 22px;
+      background: var(--info-bg);
+      border-radius: 18px;
+      border: 1px solid var(--info-border);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .counter-text {
+      font-size: 0.95rem;
+      color: var(--counter-text-color);
+      font-weight: 500;
+      margin-bottom: 10px;
+      transition: color 0.4s ease;
+    }
+
+    .counter-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #ec4899, #7c3aed);
+      color: #fff;
+      padding: 2px 11px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-left: 4px;
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.35);
+    }
+
+    .quote-text {
+      font-size: 1rem;
+      color: var(--quote-text-color);
+      font-weight: 600;
+      min-height: 1.5em;
+      line-height: 1.5;
+      transition: opacity 0.2s ease, color 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- 右上角模式切換按鈕 -->
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="切換主題模式">
+      <span id="themeIcon">☀️</span>
+      <span id="themeLabel">淺色米白</span>
+    </button>
+
+    <h1>Antigravity 破冰成功！</h1>
+    
+    <!-- 紫粉漸層發光按鈕 -->
+    <button class="btn" id="glowBtn">點擊接收鼓勵 ✨</button>
+
+    <!-- 按鈕下方迭代小字 -->
+    <div class="agent-badge">⚡ 由 Antigravity 2.0 桌面代理人自動迭代生成</div>
+
+    <!-- 點擊次數與鼓勵語錄面板 -->
+    <div class="info-box">
+      <div class="counter-text">
+        點擊次數：<span class="counter-badge" id="clickCount">0</span> 次
+      </div>
+      <div class="quote-text" id="quote">點擊上方按鈕，開啟今日滿滿能量！</div>
+    </div>
+  </div>
+
+  <script>
+    // 鼓勵小語清單
+    const quotes = [
+      "每一步都是前進的印記，今天也是閃閃發光的一天！🌟",
+      "保持好奇心，代碼的世界因你而精采！🚀",
+      "每一次嘗試，都在創造不可思議的可能！✨",
+      "放輕鬆、深呼吸，你比想像中更優秀！🌈",
+      "靈感正在悄悄發芽，繼續保持熱情吧！💡",
+      "沒有跨不過去的挑戰，只有越來越強大的你！💪",
+      "Antigravity 與你同行，一起探索無垠未知！🌌"
+    ];
+
+    let count = 0;
+    const btn = document.getElementById('glowBtn');
+    const counterEl = document.getElementById('clickCount');
+    const quoteEl = document.getElementById('quote');
+
+    // 點擊計數與語錄更換
+    btn.addEventListener('click', () => {
+      count++;
+      counterEl.textContent = count;
+
+      let newQuote;
+      do {
+        newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      } while (quotes.length > 1 && newQuote === quoteEl.textContent);
+
+      quoteEl.style.opacity = '0';
+      setTimeout(() => {
+        quoteEl.textContent = newQuote;
+        quoteEl.style.opacity = '1';
+      }, 150);
+    });
+
+    // 背景模式切換（淺色米白 / 深色夜間）
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+
+    themeToggleBtn.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark-mode');
+      if (isDark) {
+        themeIcon.textContent = '🌙';
+        themeLabel.textContent = '深色夜間';
+      } else {
+        themeIcon.textContent = '☀️';
+        themeLabel.textContent = '淺色米白';
+      }
+    });
+  </script>
+</body>
+</html>
